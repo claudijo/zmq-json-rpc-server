@@ -9,7 +9,7 @@ For corresponding client implementation, see [zmq-json-rpc-client](https://githu
 ## Installation
 
 ```
-npm install zmq-json-rpc-client
+npm install zmq-json-rpc-server
 ```
 
 ## Usage
@@ -25,7 +25,7 @@ This module exports a factory faction that accepts a ZeroMQ endpoint, eg.
 #### Options
 
 Options can be passed to the factory function as an object, specified by the 
-following keys and values.
+following key and value.
 
 ##### ignoreVersion
 
@@ -35,9 +35,9 @@ request. Defaults to `false`.
 ### server.on(method, callback)
 
 Listens for a JSON-RPC request or notification. The callback will receive 
-`params` and `reply` function arguments. The reply argument is a noop if the 
-client sends a notification (e. request without an id member). The reply 
-argument should be called with arguments `error` and `result`.
+`params` and `reply` arguments. The reply argument is a noop if the client 
+sends a notification (ie. request without an id member). The reply argument 
+should be called with arguments `error` and `result` when replying to a request.
 
 ### server.socket
 
@@ -58,6 +58,11 @@ server.on('update', function(params) {
 // Listen for a request and send reply
 server.on('subtract', function(params, reply) {
   reply(null, params.minuend - params.subtrahend);
+});
+
+// Exiting application
+process.on('SIGINT', function() {
+  server.socket.close();
 });
 
 ```
