@@ -1,6 +1,6 @@
 {
   "name": "zmq-json-rpc-server",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "JSON-RPC 2.0 server implementation using a ZMQ socket as transport mechanism",
   "main": "index.js",
   "directories": {
